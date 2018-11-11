@@ -119,7 +119,11 @@ public class UserService {
 
     public List<User> findAll() {
 
-        return userRepository.findAll();
+        List<User> userList = new ArrayList<>();
+        for (User user : userRepository.findAll()) {
+            userList.add(user);
+        }
+        return userList;
     }
 
     public List<User> blurrySearch(String keyword) {

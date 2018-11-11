@@ -35,9 +35,9 @@ body {
 }
 
 #reap {
-    padding-left: 120px;
-    height: 32px;
-    margin-top: 5px;
+    padding-left: 112px;
+    height: 28px;
+    margin-top: 8px;
 }
 
 .container-fluid {
@@ -112,4 +112,19 @@ body {
     position: relative;
     display: block;
     padding: 10px 0px;
+}
+
+.user-image {
+    float: left;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-top: -2px;
+}
+
+.dropdown-menu {
+    position: absolute;
+    right: 0;
+    left: auto;
 }

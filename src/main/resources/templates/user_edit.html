@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Admin Dashboard</title>
+    <title>Edit Page</title>
 
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -18,17 +18,61 @@
 
 <div class="container-fluid">
 
-    <form method="post" action="/admin/list/update">
+    <!--
+        <form method="post" action="/admin/list/update">
 
+            <input type="hidden" class="form-control" name="user_id" th:value="${user.id}"/>
+
+            <label>First name</label>
+            <input type="text" name="firstname" th:value="${user.firstname}">
+
+            <label>Last name</label>
+            <input type="text" name="lastname" th:value="${user.lastname}">
+
+            <button class="btn btn-primary" type="submit">Update</button>
+        </form>
+    -->
+
+    <form method="post" action="/admin/list/update">
         <input type="hidden" class="form-control" name="user_id" th:value="${user.id}"/>
 
-        <label>First name</label>
-        <input type="text" name="firstname" th:value="${user.firstname}">
+        <div class="form-group">
+            <label class="control-label col-md-3">First Name</label>
+            <div class="col-md-7">
+                <input type="text" class="form-control" name="firstname" th:value="${user.firstname}">
+            </div>
+        </div>
 
-        <label>Last name</label>
-        <input type="text" name="lastname" th:value="${user.lastname}">
 
-        <button class="btn btn-primary" type="submit">Update</button>
+        <div class="form-group">
+            <label class="control-label col-md-3">Last Name</label>
+            <div class="col-md-7">
+                <input type="text" class="form-control" name="lastname" th:value="${user.lastname}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">Email</label>
+            <div class="col-md-7">
+                <input type="text" class="form-control" name="email" th:value="${user.email}">
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-md-3">Status</label>
+            <div class="col-md-7">
+                <input type="radio" class="col-sm-1" name="status" th:value="${user.status}"/>
+                <div class="col-sm-1">Active</div>
+                <input type="radio" class="col-sm-1" name="status" th:value="${user.status}"/>
+                <div class="col-sm-1">Inactive</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Update</button>
+        </div>
+
     </form>
 
 </div>

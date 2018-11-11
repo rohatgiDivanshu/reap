@@ -204,18 +204,39 @@ public class UserController {
 
         String firstname = userMap.get("firstname");
         String lastname = userMap.get("lastname");
-//        String status = userMap.get("status");
-//
+        String status = userMap.get("status");
+
 //        List<Role> roles = Arrays.asList(new Role("ADMIN"),new Role("USER"),new Role("MANAGER"));
 
         User user = userService.findOneUser(id);
         user.setFirstname(firstname);
         user.setLastname(lastname);
-//        user.setStatus(status);
+        user.setStatus(status);
 //        user.setRoles(roles);
 
         userService.saveUser(user);
         return new ModelAndView("redirect:/admin/list");
+    }
+
+
+    /*@RequestMapping(value="search",method = RequestMethod.GET,
+            produces = {MimeTypeUtils.APPLICATION_JSON_VALUE})
+    public ResponseEntity<List<User>> searchUser(){
+        try{
+
+            User user = new User();
+            ResponseEntity<List<User>> responseEntity =
+                    new ResponseEntity<List<User>>(userService.findAll(),HttpStatus.OK);
+            return responseEntity;
+        }catch (Exception e){
+            return new ResponseEntity<List<User>>(HttpStatus.BAD_REQUEST);
+        }
+    }*/
+
+
+    @GetMapping("/all")
+    public String allUsers() {
+        return userService.findAll().toString();
     }
 
 
