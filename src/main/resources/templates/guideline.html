@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <title>Index Page</title>
+
+    <link th:href="@{'/stylesheets/index.css'}" rel="stylesheet"/>
+    <script th:src="@{'/javascript/index.js'}"></script>
+
+<body>
+
+<div th:insert="common.html :: header"></div>
+
+
+<div class="container-fluid">
+
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3>Guidelines</h3>
+        </div>
+
+
+        <div class="panel-body">
+
+            <div class="col-lg-12">
+                <div class="pannelouter" style="padding: 10px">
+                    <p><strong>Guidelines for Recognition</strong></p>
+
+                    <p><strong>Roles: </strong>All Newers are categorised into three<strong>&nbsp;</strong>roles in REAP
+                    </p>
+
+                    <ul>
+                        <li>Users - Newers working as individual contributors</li>
+                        <li>Reporting Manager/MentoVisor - Newers in team management roles and/or are MentoVisors for
+                            other Newers
+                        </li>
+                        <li>Practice Head/Service Line Head - Newers heading Practice or Service Line</li>
+                    </ul>
+
+                    <p><strong>Karmas: </strong>Karmas are areas in which we want to recognize and acknowledge Newers.
+                    </p>
+
+                    <p><strong>Core Values:&nbsp;</strong>The deeply ingrained principles that guide all of TTN's
+                        actions and serve as it’s cultural cornerstone.</p>
+
+                    <table border="1" cellpadding="1" cellspacing="1" style="width:500px">
+                        <tbody>
+                        <tr>
+                            <td>Karma / Core Value&nbsp;</td>
+                            <td>Who Can Recognize</td>
+                            <td>Whom</td>
+                            <td>For (Reason for Recognition)</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:157px">
+                                    <tbody>
+                                    <tr>
+                                        <td>Karma: Mentorship</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:190px">
+                                    <tbody>
+                                    <tr>
+                                        <td>Any Mentee/Direct Report/ Anybody whom you mentored</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:164px">
+                                    <tbody>
+                                    <tr>
+                                        <td>Any MentoVisor/Reporting Manager/Anybody who mentored you (may not be
+                                            Official MentoVisor / Reporting Manager)
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>His/her guidance and support<br>
+                                Help during projects<br>
+                                Motivating in a tough situation<br>
+                                Leading by example<br>
+                                Guidance in shaping up the career path
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:157px">
+                                    <tbody>
+                                    <tr>
+                                        <td>Karma: Knowledge Sharing</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:190px">
+                                    <tbody>
+                                    <tr>
+                                        <td>Any Newer</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:164px">
+                                    <tbody>
+                                    <tr>
+                                        <td>Any Newer who took a Formal Session (Only)</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:444px">
+                                    <tbody>
+                                    <tr>
+                                        <td>Presenting complex ideas in a simple way<br>
+                                            Helping apply the knowledge on the job<br>
+                                            Covering a lesser known Topic
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Karma: Pat on the back</td>
+                            <td>Any Newer&nbsp;</td>
+                            <td>
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:164px">
+                                    <tbody>
+                                    <tr>
+                                        <td>Any Newer&nbsp;</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>A job well done.</td>
+                        </tr>
+                        <tr>
+                            <td>Karma: Extra Miler</td>
+                            <td>Any Newer&nbsp;</td>
+                            <td>Any Newer&nbsp;</td>
+                            <td>Going above &amp; beyond the call of duty which helped<br>
+                                &nbsp; &nbsp;-create value for client<br>
+                                &nbsp; &nbsp;-meet the dead lines<br>
+                                &nbsp; &nbsp;-deliver quality work<br>
+                                &nbsp; &nbsp;-improved teams performance<br>
+                                &nbsp; &nbsp;-maintain a happy workplace/team culture/friendly environment etc.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Karma: Customer Delight</td>
+                            <td>Any Newer</td>
+                            <td>Any Newer (who has received client appreciation)&nbsp;</td>
+                            <td>Being appreciated by client for exceptional work</td>
+                        </tr>
+                        <tr>
+                            <td>Core Value: Contribution</td>
+                            <td>Any Newer</td>
+                            <td>Any Newer</td>
+                            <td>Giving back to the Tech Community by means of writing Blogs, Plugins, White Papers and
+                                participating in Conference, Summits, Hackathons etc.&nbsp;<br>
+                                Contributing to fellow Newers Growth and Learning.<br>
+                                Contributing to customer's success and/or delight.<br>
+                                Generating creative idea(s) that will help towards the betterment of TO THE NEW.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Core Value: Continuous Learning and Improvement</td>
+                            <td>Any Newer</td>
+                            <td>Any Newer</td>
+                            <td>Acquiring a new skill(s).<br>
+                                Owning and delivering a Knowledge Sharing Session.<br>
+                                Doing a POC.<br>
+                                Setting up steep learning targets and consistently achieving them.<br>
+                                Constantly improving ones deliverables.<br>
+                                Identifying new and efficient ways to do things.<br>
+                                Consistently raising the benchmarks.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Core Value: Responsible Freedom</td>
+                            <td>Any Newer</td>
+                            <td>Any Newer</td>
+                            <td>Doing the right thing, when convenient choices exist.<br>
+                                Fixing something broken, without being asked to do so.<br>
+                                Taking charge of the situation, even when it was beyond the area of work.<br>
+                                Working for the best interest of Client/Project/Team/TO THE NEW.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Core Value: Empathy</td>
+                            <td>Any Newer</td>
+                            <td>Any Newer</td>
+                            <td>Taking initiative to understand others perspectives.&nbsp;<br>
+                                Being reasonable and understanding other persons view, especially under difficult or
+                                stressful situations.<br>
+                                Showing genuine concern and extending help whenever possible.&nbsp;<br>
+                                Going that extra mile to listen, understand and help.<br>
+                                Being compassionate.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Core Value: Diligence&nbsp;</td>
+                            <td>Any Newer</td>
+                            <td>Any Newer</td>
+                            <td>Consistently producing high quality output.<br>
+                                Exceptional quality of work on a critical assignment.&nbsp;<br>
+                                Saving the day, by paying attention to details.<br>
+                                Working relentlessly to make things happen.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Core Value: Openness to Feedback and Change&nbsp;</td>
+                            <td>Any Newer</td>
+                            <td>Any Newer</td>
+                            <td>Openness to receive and/or give feedback.&nbsp;<br>
+                                Providing a platform to others to voice their opinion.<br>
+                                Bringing about changes basis the feedback.<br>
+                                Openly confronting unacceptable behaviors.
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <p>&nbsp;</p>
+
+                    <p><strong>Badges:</strong></p>
+
+                    <ul>
+                        <li>There are three types of badges - Gold, Silver and Bronze</li>
+                        <li>Badges are to be used when recognizing a Newer for Karmas</li>
+                        <li>Badges are allocated to a Newer on a&nbsp;quarterly basis</li>
+                        <li>Unused badges will lapse at the end of the quarter</li>
+                        <li>Badges are allocated as per roles</li>
+                    </ul>
+
+                    <p><strong>Redemption:</strong></p>
+
+                    <ul>
+                        <li>Every Newer accrues certain points on receiving badges through recognition</li>
+                        <li>Points accrued can be redeemed against TTN merchandise</li>
+                        <li>The possibility of product being different from the images can not be ruled&nbsp;out.</li>
+                        <li>Only the products that were received in damaged conditions would be considered for
+                            replacement.
+                        </li>
+                        <li>Please check with Admin Team for warranty applicable on the products ordered.</li>
+                    </ul>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<div th:insert="common.html :: footer"></div>
+
+</body>
+
+</html>

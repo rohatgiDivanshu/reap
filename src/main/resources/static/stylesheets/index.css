@@ -1,0 +1,115 @@
+body {
+    padding: 0px;
+    margin-left: inherit;
+    background-color: aliceblue;
+}
+
+.modal-header, h5 {
+    background-color: #fff;
+    color: black;
+    text-align: left;
+    font-size: 30px;
+}
+
+.close {
+    background-color: #00f;
+}
+
+.modal-footer {
+    background-color: #fff;
+}
+
+.navbar-nav {
+    padding: 0px;
+}
+
+.navbar-default {
+    height: 100px;
+    background-color: white;
+    border: seashell 2px solid;
+}
+
+.navbar-brand {
+    width: 40px;
+    height: 35px;
+}
+
+#reap {
+    padding-left: 120px;
+    height: 32px;
+    margin-top: 5px;
+}
+
+.container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.btn-md:hover {
+    background-color: deeppink;
+    color: white;
+}
+
+.btn-md:visited {
+    background-color: white;
+    color: black;
+}
+
+.btn-md:active {
+    background-color: deeppink;
+}
+
+.btn-md:link {
+    background-color: white;
+}
+
+#search-newer {
+    width: 45%;
+
+}
+
+.displayStyle {
+    border: solid 1px #e5e5e5;
+    border-radius: 0;
+    padding: 10px 15px;
+    margin: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    float: left;
+    width: 100%;
+    height: 150px !important;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    color: darkblue;
+    text-align: center;
+}
+
+.navbar-login {
+    width: 305px;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+
+.navbar-login-session {
+    padding: 10px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.icon-size {
+    font-size: 87px;
+}
+
+.nav > li > a {
+    position: relative;
+    display: block;
+    padding: 10px 0px;
+}

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <title>Index Page</title>
+
+    <link th:href="@{'/stylesheets/index.css'}" rel="stylesheet"/>
+    <script th:src="@{'/javascript/index.js'}"></script>
+
+<body>
+
+<div th:insert="common.html :: header"></div>
+
+
+<div class="container-fluid">
+
+
+    <div class="box-content">
+        <div class="col-lg-7">
+            <div class="head-bar blue">
+                <div class="head-inputs">
+                    <h3 class="no-margin"><i class="fa fa-bell-o big-icon"></i> Notifications</h3>
+                </div>
+
+            </div>
+
+            <div class="content">
+
+                <div class="pannelouter custom-notification">
+
+
+                    <div class="pagination pull-right">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+
+            <div class="col-lg-12">
+                <div class="box-content no-margin">
+                    <div class="head-bar bg-gray">
+                        <div class="head-inputs">
+                            <div class="row">
+                                <div class="col-lg-8 following-header">
+                                    <h3>Following (0)</h3>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <input type="text" class="select-following search no-margin ui-autocomplete-input"
+                                           placeholder="Search..." id="following_search" autocomplete="off">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="content">
+                        <div class="col-lg-12">
+                            <div class="row">
+
+                                You are not following anyone.
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12">
+                <div class="box-content">
+                    <div class="head-bar  bg-gray">
+                        <h3>Followers (0)</h3>
+                    </div>
+
+                    <div class="content">
+                        <div class="col-lg-12">
+                            <div class="row">
+
+                                You do not have any followers
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-12">
+                <div class="box-content">
+                    <div class="head-bar bg-gray ">
+                        <h3>unsubscribe region</h3>
+                    </div>
+
+                    <div class="content">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                Ninjas<input type="hidden" name="_practiceSubscription">
+                                <input type="checkbox" name="practiceSubscription" checked="checked"
+                                       style="width: 10%;float: none;height: 15px;" id="practiceSubscription">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+<div th:insert="common.html :: footer"></div>
+
+
+</body>
+</html>
