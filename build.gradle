@@ -49,11 +49,8 @@ dependencies {
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools
     compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.1.0.RELEASE'
     dev("org.springframework.boot:spring-boot-devtools")
-    // https://mvnrepository.com/artifact/org.springframework.security/spring-security-crypto
-    compile group: 'org.springframework.security', name: 'spring-security-crypto', version: '3.1.0.RELEASE'
     // https://mvnrepository.com/artifact/org.springframework/spring-context-support
     compile group: 'org.springframework', name: 'spring-context-support', version: '3.2.0.RELEASE'
-
 
 
 }

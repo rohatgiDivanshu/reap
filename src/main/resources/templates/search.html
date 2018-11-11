@@ -1,0 +1,43 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:user="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Admin Dashboard</title>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link th:href="@{'/stylesheets/admin.css'}" rel="stylesheet"/>
+
+
+</head>
+<body>
+
+
+<div th:fragment="search-bar">
+    <div class="container-fluid">
+
+
+        <table class="table table-hover table-responsive-md" align="center">
+            <tbody>
+            <tr id="tr items=" user:${users}
+            ">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.firstname}"></td>
+            <td th:text="${user.lastname}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.status}"></td>
+            <td th:text="${user.dateCreated}"></td>
+            <td th:text="${user.roles}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

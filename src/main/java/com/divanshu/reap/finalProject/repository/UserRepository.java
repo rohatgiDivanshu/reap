@@ -22,10 +22,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     User findByPassword(String password);
 
-    List<User> findAllByFirstnameLike(String firstname);
-
-    List<User> findByFirstnameContaining(String firstname);
-
-    User findByFirstname(String firstname);
+//    @Query("select first_name from user where first_name like "___%"")
+//    List<User> findByFirstname(String firstname);
 
 }

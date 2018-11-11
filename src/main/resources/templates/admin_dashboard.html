@@ -19,20 +19,22 @@
 <div class="container-fluid">
 
 
-    <form action="/admin/list" class="form-inline">
+    <form action="/admin" class="form-inline">
         <div class="form.group col-md-4">
-            <input type="text" class="form-control" name="name" placeholder="Search a User"/>
+            <input type="text" id="search" name="search" class="form-control" placeholder="Search a User"/>
             <input type="submit" value="Search" class="btn btn-primary">
+
         </div>
 
-        <div class="form.group col-md-4">
+        <div class="col-md-4"></div>
+
+        <div class="form.group col-md-4 pull-right">
             <a href="/admin">
                 <button type="button" class="btn btn-primary">Logout</button>
             </a>
         </div>
     </form>
-
-    <div id="showUsers">
+    <br><br>
         <table class="table table-hover table-responsive-md" align="center">
             <thead>
             <tr>
@@ -54,14 +56,7 @@
                 <td th:text="${user.status}"></td>
                 <td th:text="${user.dateCreated}"></td>
                 <td th:text="${user.roles}"></td>
-                <td>
-                    <a th:href="@{'/admin/list/{id}/delete'(id=${user.id})}" class="delete"
-                       th:attr="name=${user.firstname}">
-                        <span class="fa-stack">
-                            <i class="glyphicon glyphicon-trash"></i>
-                        </span>
-                    </a>
-                </td>
+
 
                 <td>
                     <a th:href="@{'/admin/list/{id}/edit'(id=${user.id})}" class="edit"
@@ -72,23 +67,20 @@
 
                     </a>
                 </td>
+
+                <td>
+                    <a th:href="@{'/admin/list/{id}/delete'(id=${user.id})}" class="delete"
+                       th:attr="name=${user.firstname}">
+                        <span class="fa-stack">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </span>
+                    </a>
+                </td>
             </tr>
             </tbody>
         </table>
-    </div>
-
-
 </div>
 
-<script>
-    $(document).ready(function () {
-        $("#show").click(function () {
-            $("#showUsers").show();
-        });
-    });
-
-
-</script>
 
 </body>
 </html>

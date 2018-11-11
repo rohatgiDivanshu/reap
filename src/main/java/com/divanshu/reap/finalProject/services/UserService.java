@@ -41,6 +41,7 @@ public class UserService {
         return userRepository.findById(id).get();
     }
 
+
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
@@ -63,20 +64,6 @@ public class UserService {
         return userRepository.findByPassword(password);
     }
 
-
-    public List<User> findAll(String firstname) {
-        return userRepository.findAllByFirstnameLike("%" + firstname + "%");
-    }
-
-    public List<User> searchByFirstname(String firstname) {
-        List<User> userList = userRepository.findByFirstnameContaining(firstname);
-        return userList;
-    }
-
-
-    public User findFirstname(String firstname) {
-        return userRepository.findByFirstname(firstname);
-    }
 
     public void createUser(User user) {
         user.setDateCreated(new Date());
@@ -126,8 +113,11 @@ public class UserService {
         return userList;
     }
 
-    public List<User> blurrySearch(String keyword) {
-        List<User> userList = userRepository.findByFirstnameContaining(keyword);
-        return userList;
+
+    public List<User> findByFirstName(String firstName) {
+        return userRepository.findByFirstnameLike(firstName + "%");
     }
+
 }
+
+

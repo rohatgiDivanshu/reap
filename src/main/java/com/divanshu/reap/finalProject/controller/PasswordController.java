@@ -29,9 +29,6 @@ public class PasswordController {
     @Autowired
     private EmailService emailService;
 
-//    @Autowired
-//    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
 
     // Display forgotPassword page
     @RequestMapping(value = "/forgotpassword", method = RequestMethod.GET)
@@ -47,7 +44,7 @@ public class PasswordController {
         Optional<User> optional = userService.findUserByEmail(userEmail);
 
         if (!optional.isPresent()) {
-            modelAndView.addObject("errorMessage", "We didn't find an account for that e-mail address.");
+            modelAndView.addObject("msg", "We didn't find an account for that e-mail address.");
         } else {
 
             // Generate random 36-character string token for reset password
@@ -70,7 +67,7 @@ public class PasswordController {
 //            emailService.sendEmail(passwordResetEmail);
 
             // Add success message to view
-            modelAndView.addObject("successMessage", "A password reset link has been sent to " + userEmail);
+            modelAndView.addObject("msg", "A password reset link has been sent to " + userEmail);
         }
 
         modelAndView.setViewName("forgot_password");
@@ -107,7 +104,7 @@ public class PasswordController {
             User resetUser = user.get();
 
             // Set new password
-//            resetUser.setPassword(bCryptPasswordEncoder.encode(requestParams.get("password")));
+            resetUser.setPassword(requestParams.get("password"));
 
             // Set the reset token to null so it cannot be used again
             resetUser.setResetToken(null);
@@ -124,7 +121,7 @@ public class PasswordController {
 
         } else {
             modelAndView.addObject("errorMessage", "Oops!  This is an invalid password reset link.");
-            modelAndView.setViewName("resetPassword");
+            modelAndView.setViewName("reset_password");
         }
 
         return modelAndView;

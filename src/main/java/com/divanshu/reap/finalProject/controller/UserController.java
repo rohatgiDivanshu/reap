@@ -5,10 +5,12 @@ import com.divanshu.reap.finalProject.entity.User;
 import com.divanshu.reap.finalProject.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Map;
@@ -34,13 +36,11 @@ public class UserController {
         return modelAndView;
     }
 
-/*
     @PostMapping(value = "/dashboard")
     public ModelAndView dashboardPage(){
         ModelAndView modelAndView = new ModelAndView("user_dashboard");
         return modelAndView;
     }
-*/
 
 
     @GetMapping(value = "/login")
@@ -57,7 +57,7 @@ public class UserController {
 
         if (userExists != null) {
             if (!userExists.getPassword().isEmpty() && userExists.getPassword().equals(user.getPassword())) {
-                modelAndView.setViewName("user_dashboard");
+                modelAndView.setViewName("redirect:/dashboard");
             } else {
                 modelAndView.addObject("msg", "Password don't match");
                 modelAndView.setViewName("user_login");
@@ -73,7 +73,7 @@ public class UserController {
     @RequestMapping("/logout")
     public ModelAndView logout(HttpSession session) {
         session.invalidate();
-        return new ModelAndView("user_login");
+        return new ModelAndView("redirect:/login");
     }
 
 
@@ -139,8 +139,8 @@ public class UserController {
 
 
         if (userExists != null) {
-            if (user.getEmail().equals(user.getEmail()) && user.getPassword().equals(user.getPassword())) {
-                modelAndView.setViewName("admin_dashboard");
+            if (user.getEmail().equals("admin@ttn.com") && user.getPassword().equals("admin12")) {
+                modelAndView.setViewName("redirect:/admin/list");
             } else {
                 modelAndView.addObject("msg", "You're not authorized");
                 modelAndView.setViewName("admin");
@@ -176,8 +176,9 @@ public class UserController {
     }
 
     @GetMapping("/admin/list")
-    public ModelAndView adminDash(Model model) {
-        model.addAttribute("users", userService.getAllUsers());
+    public ModelAndView adminDash(Model model, HttpServletRequest request) {
+        request.setAttribute("users", userService.getAllUsers());
+//        model.addAttribute("users", userService.getAllUsers());
         return new ModelAndView("admin_dashboard");
     }
 
@@ -204,6 +205,7 @@ public class UserController {
 
         String firstname = userMap.get("firstname");
         String lastname = userMap.get("lastname");
+        String email = userMap.get("email");
         String status = userMap.get("status");
 
 //        List<Role> roles = Arrays.asList(new Role("ADMIN"),new Role("USER"),new Role("MANAGER"));
@@ -211,6 +213,7 @@ public class UserController {
         User user = userService.findOneUser(id);
         user.setFirstname(firstname);
         user.setLastname(lastname);
+        user.setEmail(email);
         user.setStatus(status);
 //        user.setRoles(roles);
 
@@ -237,6 +240,13 @@ public class UserController {
     @GetMapping("/all")
     public String allUsers() {
         return userService.findAll().toString();
+    }
+
+
+    @RequestMapping(value = "/admin/list/{firstName}", method = RequestMethod.GET)
+    public ModelAndView loadByName(@PathVariable("firstName") String firstName, ModelMap model) {
+        model.put("users", userService.findByFirstName(firstName));
+        return new ModelAndView("/search", model);
     }
 
 
