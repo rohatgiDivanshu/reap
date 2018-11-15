@@ -1,6 +1,7 @@
 package com.divanshu.reap.finalProject.services;
 
 
+import com.divanshu.reap.finalProject.entity.Badges;
 import com.divanshu.reap.finalProject.entity.Role;
 import com.divanshu.reap.finalProject.entity.User;
 import com.divanshu.reap.finalProject.repository.UserRepository;
@@ -68,33 +69,47 @@ public class UserService {
     public void createUser(User user) {
         user.setDateCreated(new Date());
         user.setStatus("Active");
-        Role userRole = new Role("USER");
-        List<Role> roles = new ArrayList<>();
-        roles.add(userRole);
-        user.setRoles(roles);
+        user.setUserRole("USER");
+        Badges badges = new Badges(2, 4, 6);
+        user.setBadges(badges);
         userRepository.save(user);
     }
 
     public void createAdmin(User user) {
-//        user.setEmail("admin@ttn.com");
-//        user.setPassword("admin");
         user.setDateCreated(new Date());
         user.setStatus("Active");
-        Role userRole = new Role("ADMIN");
-        List<Role> roles = new ArrayList<>();
-        roles.add(userRole);
-        user.setRoles(roles);
+        user.setUserRole("ADMIN");
+        Badges badges = new Badges(4, 5, 6);
+        user.setBadges(badges);
         userRepository.save(user);
     }
 
-    public void createSuperAdmin(User user) {
+    public void createPracticeHead(User user) {
         user.setDateCreated(new Date());
         user.setStatus("Active");
-        Role userRole = new Role("SUPER_ADMIN");
-        List<Role> roles = new ArrayList<>();
-        roles.add(userRole);
-        user.setRoles(roles);
+        Badges badges = new Badges(3, 6, 9);
+        user.setBadges(badges);
+        user.setUserRole("PRACTICE HEAD");
         userRepository.save(user);
+    }
+
+
+    public void createSupervisor(User user) {
+        user.setDateCreated(new Date());
+        user.setStatus("Active");
+        Badges badges = new Badges(6, 8, 10);
+        user.setBadges(badges);
+        user.setUserRole("Supervisor");
+        userRepository.save(user);
+    }
+
+
+    public String findByStatus(String status) {
+        return userRepository.findByStatus(status);
+    }
+
+    public String findByRole(String role) {
+        return userRepository.findByUserRole(role);
     }
 
 

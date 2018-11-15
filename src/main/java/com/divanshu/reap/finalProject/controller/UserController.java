@@ -4,6 +4,7 @@ package com.divanshu.reap.finalProject.controller;
 import com.divanshu.reap.finalProject.entity.User;
 import com.divanshu.reap.finalProject.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -13,31 +14,34 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 
 @RestController
 public class UserController {
 
-
     @Autowired
     UserService userService;
 
 
-    @GetMapping(value = "/")
+    @GetMapping("/")
     public ModelAndView show() {
-        ModelAndView modelAndView = new ModelAndView("user_dashboard");
+        ModelAndView modelAndView = new ModelAndView("user_login");
         return modelAndView;
     }
+/*
 
     @GetMapping(value = "/dashboard")
     public ModelAndView dashboard() {
         ModelAndView modelAndView = new ModelAndView("user_dashboard");
         return modelAndView;
     }
+*/
 
-    @PostMapping(value = "/dashboard")
-    public ModelAndView dashboardPage(){
+    @GetMapping(value = "/user/dashboard")
+    public ModelAndView dashboardPage() {
         ModelAndView modelAndView = new ModelAndView("user_dashboard");
         return modelAndView;
     }
@@ -51,43 +55,48 @@ public class UserController {
 
 
     @PostMapping(value = "/login")
-    public ModelAndView postlogin(User user) {
+    public ModelAndView postlogin(User user, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
+
         User userExists = userService.findByEmail(user.getEmail());
 
-        if (userExists != null) {
+        if (userExists == null) {
+            modelAndView.addObject("msg", "Email and Password not found");
+            modelAndView.setViewName("user_login");
+        } else if (userExists.getStatus().equals("Inactive")) {
+            modelAndView.addObject("msg", "User is Inactive");
+            modelAndView.setViewName("user_login");
+        } else {
             if (!userExists.getPassword().isEmpty() && userExists.getPassword().equals(user.getPassword())) {
-                modelAndView.setViewName("redirect:/dashboard");
+                modelAndView.setViewName("redirect:/user/dashboard");
             } else {
                 modelAndView.addObject("msg", "Password don't match");
                 modelAndView.setViewName("user_login");
             }
-        } else {
-            modelAndView.addObject("msg", "Email & Password not found");
-            modelAndView.setViewName("user_login");
+
         }
+
         return modelAndView;
     }
+
 
 
     @RequestMapping("/logout")
     public ModelAndView logout(HttpSession session) {
         session.invalidate();
-        return new ModelAndView("redirect:/login");
+        return new ModelAndView("redirect:/login?=logout");
     }
 
 
     @GetMapping("/register")
     public ModelAndView registerUser(Model model) {
-
-        ModelAndView modelAndView = new ModelAndView("user_registration");
-        model.addAttribute("user", new User());
-        return modelAndView;
+        return new ModelAndView("user_registration", "user", new User());
     }
 
-
     @PostMapping("/register")
-    public ModelAndView postRegister(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model) {
+    public ModelAndView postRegister(@Valid @ModelAttribute User user,
+                                     BindingResult bindingResult,
+                                     Model model) {
 
         ModelAndView modelAndView = new ModelAndView();
 
@@ -108,22 +117,6 @@ public class UserController {
         modelAndView.setViewName("user_registration");
         return modelAndView;
     }
-
-/*
-
-    @GetMapping("/forgotpassword")
-    public ModelAndView resetPass(){
-        ModelAndView modelAndView = new ModelAndView("forgot_password");
-        return modelAndView;
-    }
-
-
-    @PostMapping("/forgotpassword")
-    public ModelAndView updateNewPass(User user){
-        ModelAndView modelAndView = new ModelAndView("user_login");
-       return modelAndView;
-    }
-*/
 
 
     @GetMapping("/admin")
@@ -176,15 +169,16 @@ public class UserController {
     }
 
     @GetMapping("/admin/list")
-    public ModelAndView adminDash(Model model, HttpServletRequest request) {
+    public ModelAndView adminDash(Model model, HttpServletRequest request, @RequestParam(defaultValue = "0") int page) {
+
         request.setAttribute("users", userService.getAllUsers());
-//        model.addAttribute("users", userService.getAllUsers());
         return new ModelAndView("admin_dashboard");
     }
 
 
     @GetMapping("/admin/list/{id}/edit")
-    public ModelAndView editUser(@PathVariable Integer id, Model model) {
+    public ModelAndView editUser(@PathVariable Integer id, Model model, String role) {
+
 
         User user = userService.findOneUser(id);
         model.addAttribute("user", user);
@@ -207,39 +201,28 @@ public class UserController {
         String lastname = userMap.get("lastname");
         String email = userMap.get("email");
         String status = userMap.get("status");
-
-//        List<Role> roles = Arrays.asList(new Role("ADMIN"),new Role("USER"),new Role("MANAGER"));
+        String roles = userMap.get("userRole");
 
         User user = userService.findOneUser(id);
         user.setFirstname(firstname);
         user.setLastname(lastname);
         user.setEmail(email);
         user.setStatus(status);
-//        user.setRoles(roles);
-
+        user.setUserRole(roles);
         userService.saveUser(user);
         return new ModelAndView("redirect:/admin/list");
     }
 
 
-    /*@RequestMapping(value="search",method = RequestMethod.GET,
-            produces = {MimeTypeUtils.APPLICATION_JSON_VALUE})
-    public ResponseEntity<List<User>> searchUser(){
-        try{
-
-            User user = new User();
-            ResponseEntity<List<User>> responseEntity =
-                    new ResponseEntity<List<User>>(userService.findAll(),HttpStatus.OK);
-            return responseEntity;
-        }catch (Exception e){
-            return new ResponseEntity<List<User>>(HttpStatus.BAD_REQUEST);
-        }
-    }*/
-
-
     @GetMapping("/all")
-    public String allUsers() {
-        return userService.findAll().toString();
+    public List<String> allUsers(@RequestParam(value = "term", defaultValue = "",
+            required = false) String term) {
+        List<String> sugesstions = new ArrayList<>();
+        List<User> allUser = userService.findByFirstName(term);
+        for (User user : allUser) {
+            sugesstions.add(user.getFirstname());
+        }
+        return sugesstions;
     }
 
 
@@ -249,5 +232,10 @@ public class UserController {
         return new ModelAndView("/search", model);
     }
 
+    private void addUserInSession(User u, HttpSession httpSession) {
+        httpSession.setAttribute("user", u);
+        httpSession.setAttribute("id", u.getId());
+        httpSession.setAttribute("role", u.getUserRole());
+    }
 
 }

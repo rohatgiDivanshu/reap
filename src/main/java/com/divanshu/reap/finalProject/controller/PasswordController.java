@@ -58,13 +58,14 @@ public class PasswordController {
 
             // Email message
             SimpleMailMessage passwordResetEmail = new SimpleMailMessage();
-            passwordResetEmail.setFrom("support@ttn.com");
+            passwordResetEmail.setFrom("supportreap@ttn.com");
             passwordResetEmail.setTo(user.getEmail());
             passwordResetEmail.setSubject("Password Reset Request");
+//            passwordResetEmail.setText("Your current password is --> " + user.getPassword());
             passwordResetEmail.setText("To reset your password, click the link below:\n" + appUrl
-                    + "/reset?token=" + user.getResetToken());
-
-//            emailService.sendEmail(passwordResetEmail);
+                    + "/reset?token=" + user.getResetToken() + "In case url doesn't work"
+                    + user.getPassword());
+            emailService.sendEmail(passwordResetEmail);
 
             // Add success message to view
             modelAndView.addObject("msg", "A password reset link has been sent to " + userEmail);
@@ -87,13 +88,15 @@ public class PasswordController {
             modelAndView.addObject("errorMessage", "Oops!  This is an invalid password reset link.");
         }
 
-        modelAndView.setViewName("resetPassword");
+        modelAndView.setViewName("reset_password");
         return modelAndView;
     }
 
     // Process reset password form
     @RequestMapping(value = "/reset", method = RequestMethod.POST)
-    public ModelAndView setNewPassword(ModelAndView modelAndView, @RequestParam Map<String, String> requestParams, RedirectAttributes redir) {
+    public ModelAndView setNewPassword(ModelAndView modelAndView,
+                                       @RequestParam Map<String, String> requestParams,
+                                       RedirectAttributes redir) {
 
         // Find the user associated with the reset token
         Optional<User> user = userService.findUserByResetToken(requestParams.get("token"));

@@ -22,6 +22,11 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     User findByPassword(String password);
 
+    String findByStatus(String status);
+
+    String findByUserRole(String role);
+
+
 //    @Query("select first_name from user where first_name like "___%"")
 //    List<User> findByFirstname(String firstname);
 

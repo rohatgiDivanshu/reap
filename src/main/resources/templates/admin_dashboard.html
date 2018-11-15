@@ -35,16 +35,20 @@
         </div>
     </form>
     <br><br>
-        <table class="table table-hover table-responsive-md" align="center">
+    <table class="table table-hover table-bordered table-responsive-md" align="center">
             <thead>
             <tr>
                 <th scope="col">Id</th>
                 <th scope="col">First Name</th>
                 <th scope="col">Last Name</th>
                 <th scope="col">Email</th>
+                <th scope="col">Total Points</th>
+                <th scope="col" colspan="3">Badges</th>
                 <th scope="col">Status</th>
                 <th scope="col">Date Created</th>
                 <th scope="col">Role</th>
+                <th scope="col"></th>
+
             </tr>
             </thead>
             <tbody>
@@ -53,9 +57,13 @@
                 <td th:text="${user.firstname}"></td>
                 <td th:text="${user.lastname}"></td>
                 <td th:text="${user.email}"></td>
+                <td th:text="100"></td>
+                <td th:text="${user.badges.gold}"></td>
+                <td th:text="${user.badges.silver}"></td>
+                <td th:text="${user.badges.bronze}"></td>
                 <td th:text="${user.status}"></td>
                 <td th:text="${user.dateCreated}"></td>
-                <td th:text="${user.roles}"></td>
+                <td th:text="${user.userRole}"></td>
 
 
                 <td>

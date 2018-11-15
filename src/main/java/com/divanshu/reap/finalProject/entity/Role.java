@@ -3,7 +3,7 @@ package com.divanshu.reap.finalProject.entity;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
+//@Entity
 public class Role {
 
     @Id

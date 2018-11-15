@@ -35,12 +35,6 @@ public class User {
     @Size(min = 6, message = "Password should be of {min} length")
     private String password;
 
-    /*@Column(name = "user_confirm_password")
-    @Transient
-    @NotEmpty(message = "Please enter confirm password")
-    @Size(min = 6, message = "Password should be of {min} length")
-    private String confirmPassword;*/
-
 
     @Temporal(TemporalType.DATE)
     @Column(name = "user_created")
@@ -49,12 +43,35 @@ public class User {
     @Column(name = "status")
     private String status;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @Column(name = "user_role")
-    @JoinTable(name = "USER_ROLES", joinColumns = {@JoinColumn(name = "user_id")
-    }, inverseJoinColumns = {@JoinColumn(name = "role_name")})
-    private List<Role> roles;
+    private String userRole;
 
+    @OneToOne
+    @JoinColumn(name = "RemainingBadges")
+    private GivenBadges givingBadges;// badgesAvailabe
+
+    @OneToOne
+    @JoinColumn(name = "ReceivedBadges")
+    private ReceivedBadges receivedBadges; //badgesReceived
+
+    @Embedded
+    private Badges badges;
+
+    public User(@NotEmpty(message = "Please enter first name") String firstname, @NotEmpty(message = "Please enter last name") String lastname, @NotEmpty(message = "Please enter email address") @Email String email, @NotEmpty(message = "Please enter password") @Size(min = 6, message = "Password should be of {min} length") String password, Date dateCreated, String status, String userRole, GivenBadges givingBadges, ReceivedBadges receivedBadges, String resetToken) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+        this.dateCreated = dateCreated;
+        this.status = status;
+        this.userRole = userRole;
+        this.givingBadges = givingBadges;
+        this.receivedBadges = receivedBadges;
+        this.resetToken = resetToken;
+    }
+
+    public Badges getBadges() {
+        return badges;
+    }
 
     @Column(name = "reset_token")
     private String resetToken;
@@ -62,14 +79,32 @@ public class User {
     public User() {
     }
 
-    public User(@NotEmpty(message = "Please enter first name") String firstname, @NotEmpty(message = "Please enter last name") String lastname, @NotEmpty(message = "Please enter email address") @Email String email, @NotEmpty(message = "Please enter password") @Size(min = 6, message = "Password should be of {min} length") String password, Date dateCreated, String status, String resetToken) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
-        this.password = password;
-        this.dateCreated = dateCreated;
-        this.status = status;
-        this.resetToken = resetToken;
+    public void setBadges(Badges badges) {
+        this.badges = badges;
+    }
+
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
+    }
+
+    public GivenBadges getGivingBadges() {
+        return givingBadges;
+    }
+
+    public void setGivingBadges(GivenBadges givingBadges) {
+        this.givingBadges = givingBadges;
+    }
+
+    public ReceivedBadges getReceivedBadges() {
+        return receivedBadges;
+    }
+
+    public void setReceivedBadges(ReceivedBadges receivedBadges) {
+        this.receivedBadges = receivedBadges;
     }
 
     public String getResetToken() {
@@ -136,24 +171,6 @@ public class User {
         this.status = status;
     }
 
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
-
-/*
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
-
-*/
 
     @Override
     public String toString() {
@@ -165,6 +182,9 @@ public class User {
                 ", password='" + password + '\'' +
                 ", dateCreated=" + dateCreated +
                 ", status='" + status + '\'' +
+                ", userRole='" + userRole + '\'' +
+                ", givingBadges=" + givingBadges +
+                ", receivedBadges=" + receivedBadges +
                 ", resetToken='" + resetToken + '\'' +
                 '}';
     }

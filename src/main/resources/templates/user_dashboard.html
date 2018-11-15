@@ -5,12 +5,15 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Dashboard Page</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
 
-    <title>Dashboard Page</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <link th:href="@{'/stylesheets/index.css'}" rel="stylesheet"/>
     <script th:src="@{'/javascripts/index.js'}"></script>
@@ -18,234 +21,6 @@
 <body>
 
 <div th:insert="common.html :: header"></div>
-
-
-<!--<nav class="navbar navbar-default">
-    &lt;!&ndash;signup modal&ndash;&gt;
-    <div class="container">
-
-
-        <a class="navbar-brand" href="#" style="padding: 30px; margin-left: -100px">
-            <img alt="Brand" src="/images/reapmain.png">
-        </a>
-        <div id="header-buttons" style="margin-top: 28px; margin-right: -60px">
-            <img id="reap" alt="Brand" src="/images/reap.png" style="margin-left: -25px">
-
-            <button type="button" class="btn btn-default btn-md">
-                <span aria-hidden="true"></span> Back To Newersworld
-            </button>
-
-            &lt;!&ndash;<button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myLogin">
-                Login
-            </button>&ndash;&gt;
-
-            <button type="button" class="btn btn-default btn-md active" style="background-color: deeppink;color: white">
-                <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span> Dashboard
-            </button>
-
-            <button type="button" class="btn btn-default btn-md">
-                <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Badges
-            </button>
-
-            <button type="button" class="btn btn-default btn-md">
-                <span class="glyphicon glyphicon-certificate" aria-hidden="true"></span> Certificate
-            </button>
-
-            <button type="button" class="btn btn-default btn-md">
-                <span class="glyphicon glyphicon-bell " aria-hidden="true"></span>
-            </button>
-
-            <div class="nav navbar-nav navbar-right">
-                <button type="button" class="btn btn-default btn-md">
-                    <span class="glyphicon glyphicon-user" aria-hidden="true" style="width: 50px"></span>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    &lt;!&ndash;
-        <div class="modal fade" id="mySignUp" role="dialog">
-            <div class="modal-dialog">
-
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h5>Register</h5>
-                    </div>
-                    <div class="modal-body">
-                        <form enctype="multipart/form-data" th:action="@{'/reap/login'}" th:Object="${user}" method="post"
-                              autocomplete="off">
-
-                            <div class="form-group">
-                                <label>Email: <span style="color:red">*</span></label>
-                                <input type="email" class="form-control" name="email" th:field="*{email}"
-                                       placeholder="Enter email address" required data-errormessage-value-missing="Email Error">
-                            </div>
-
-                            <div class="form-group">
-                                <label>First Name: <span style="color:red">*</span></label>
-                                <input type="text" class="form-control" name="firstname" th:field="*{firstname}"
-                                       placeholder="Enter firstname" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Last Name: <span style="color:red">*</span></label>
-                                <input type="text" class="form-control" name="lastname" th:field="*{lastname}"
-                                       placeholder="Enter lastname" required>
-                            </div>
-
-
-                            <div class="form-group">
-                                <label>Photo: <span style="color:red">*</span></label>
-                                <input type="file" class="form-control" name="photo" placeholder="No file chosen">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Password: <span style="color:red">*</span></label>
-                                <input type="password" class="form-control" name="password" th:field="*{password}"
-                                       placeholder="Enter password" required>
-                            </div>
-
-
-                            <div class="modal-footer">
-                                <div class="row">
-                                    <div class="btn btn-primary btn-sm" data-dismiss="modal" data-toggle="modal"
-                                         data-target="#myLogin" type="button" value="login" name="login">Login
-                                    </div>
-                                    <button type="submit" class="btn btn-primary btn-sm"
-                                    >Register
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-
-        &lt;!&ndash;login modal&ndash;&gt;
-
-        <div class="container">
-            <div class="modal fade" id="myLogin" role="dialog">
-                <div class="modal-dialog">
-
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h5>Login</h5>
-                        </div>
-                        <div class="modal-body">
-                            <form role="form">
-                                <div class="form-group">
-                                    <label>Username: <span style="color:red">*</span></label>
-                                    <input type="text" class="form-control" name="username" placeholder="Enter email">
-                                </div>
-                                <div class="form-group">
-                                    <label>Password: <span style="color:red">*</span></label>
-                                    <input type="password" class="form-control" name="password"
-                                           placeholder="Enter password">
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <p align="left"><a href="#" data-dismiss="modal" data-toggle="modal"
-                                                       data-target="#myForgot"><u>Forgot Password</u></a></p>
-                                </div>
-                                <div class="col-sm-6">
-                                    <button class="btn btn-primary btn-sm" data-dismiss="modal" data-toggle="modal"
-                                            type="button">Login
-                                    </button>
-                                    <button class="btn btn-primary btn-sm" data-dismiss="modal" data-toggle="modal"
-                                            data-target="#mySignUp" type="button">Register
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        &lt;!&ndash;forgot password&ndash;&gt;
-        <div class="container">
-
-            <div class="modal fade" id="myForgot" role="dialog">
-                <div class="modal-dialog">
-
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h5>Forgot Password</h5>
-                        </div>
-                        <div class="modal-body">
-                            <form role="form">
-                                <div class="form-group">
-                                    <label>Email: <span style="color:red">*</span></label>
-                                    <input type="email" class="form-control" name="email" placeholder="Enter email address">
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-
-                            <button class="btn btn-primary btn-sm" type="button">Send Password</button>
-                            <button class="btn btn-default btn-sm" data-dismiss="modal" data-toggle="modal"
-                                    type="button">Close
-                            </button>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-</nav>-->
-
-
-<!--<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">
-                <img alt="Brand" src="images/reapmain.png">
-            </a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li><a href="#">
-                <img id="reap" alt="Brand" src="images/reap.png">
-            </a></li>
-            <li><a href="#">
-                <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myLogin">
-                    Login
-                </button>
-            </a></li>
-            <li><a href="#">
-
-                <button type="button" class="btn btn-default btn-md">
-                    <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span> Dashboard
-                </button>
-            </a></li>
-            <li><a href="#">
-
-                <button type="button" class="btn btn-default btn-md">
-                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Badges
-                </button>
-            </a></li>
-            <li><a href="#">
-
-                <button type="button" class="btn btn-default btn-md">
-                    <span class="glyphicon glyphicon-certificate" aria-hidden="true"></span> Certificate
-                </button>
-            </a></li>
-            <li><a href="#">
-
-                <button type="button" class="btn btn-default btn-md">
-                    <span class="glyphicon glyphicon-bell " aria-hidden="true"></span>
-                </button>
-            </a></li>
-        </ul>
-    </div>
-</nav>-->
 
 
 <div class="container-fluid">
@@ -1094,31 +869,7 @@
 
 <!--WALL OF FAME-->
 <div class="container-fluid">
-    <!--<div class="col-md-9">
-        <div class="panel panel-primary">
-            <div class="panel-heading"><img src="/images/fame.png" style="padding-right: 10px">HALL OF FAME</span>
 
-            </div>
-        </div>
-        <div class="panel-body">
-
-            <div class="row">
-                <div class="col-md-4">
-                    <img src="/images/gold.png">
-                </div>
-
-                <div class="col-md-4">
-                    <img src="/images/silver.png">
-                </div>
-
-                <div class="col-md-4">
-                    <img src="/images/bronze.png">
-                </div>
-
-            </div>
-
-        </div>
-    </div>-->
     <div class=" col-lg-9 col-md-9">
         <div class="panel panel-primary">
             <div class="panel-heading">
@@ -1439,13 +1190,45 @@
 
 
 <script>
+    $(function () {
+        $("#userList").autocomplete({
 
-    $("#userList").autocomplete({
+            source: "/all",
+            minLength: 1
+        });
+    });
+</script>
 
-        serviceUrl: '/search',
-        onSelect: function (suggestion) {
-            alert('You have selected' + suggestion.value + ',' + suggestion.data);
+<script>
+
+    $(function () {
+        function log(message) {
+            $("<div>").text(message).prependTo("#log");
+            $("#log").scrollTop(0);
         }
+
+        $("#userList").autocomplete({
+            source: "/all",
+            minLength: 1,
+            /*select: function( event, ui ) {
+
+                log( ui.item ?
+                    ui.item.value + "received a"  :
+                    "Nothing selected, input was " + this.value );
+            }*/
+
+            success: function (data) {
+                response($.map(data, function (v, i) {
+
+                    return {
+                        label: v.userId + ":" + "     		   " + v.firstname,
+                        value: v.userId + ":" + "      		   " + v.firstname
+
+                    };
+                }));
+            }
+
+        });
     });
 
 </script>
