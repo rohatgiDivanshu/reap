@@ -63,7 +63,8 @@ public class PasswordController {
             passwordResetEmail.setSubject("Password Reset Request");
 //            passwordResetEmail.setText("Your current password is --> " + user.getPassword());
             passwordResetEmail.setText("To reset your password, click the link below:\n" + appUrl
-                    + "/reset?token=" + user.getResetToken() + "In case url doesn't work"
+                    + "/reset?token=" + user.getResetToken() + "And if in case provided url doesn't work"
+                    + "\n"
                     + user.getPassword());
             emailService.sendEmail(passwordResetEmail);
 

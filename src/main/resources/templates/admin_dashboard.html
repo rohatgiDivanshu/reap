@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sd="http://www.w3.org/1999/xhtml">
 <head>
     <title>Admin Dashboard</title>
 
@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
     <link th:href="@{'/stylesheets/admin.css'}" rel="stylesheet"/>
 
@@ -19,75 +23,143 @@
 <div class="container-fluid">
 
 
-    <form action="/admin" class="form-inline">
+    <form class="form-inline">
         <div class="form.group col-md-4">
-            <input type="text" id="search" name="search" class="form-control" placeholder="Search a User"/>
+            <input type="text" id="search" name="search" class="form-control" autocomplete="true"
+                   placeholder="Search a User"/>
             <input type="submit" value="Search" class="btn btn-primary">
 
         </div>
 
-        <div class="col-md-4"></div>
+        <div class="form.group col-md-4">
+            <a href="/downloadCSV">
+                <button type="button">Click to Download!</button>
+            </a>
+        </div>
 
         <div class="form.group col-md-4 pull-right">
-            <a href="/admin">
+            <a href="/">
                 <button type="button" class="btn btn-primary">Logout</button>
             </a>
         </div>
     </form>
     <br><br>
-    <table class="table table-hover table-bordered table-responsive-md" align="center">
-            <thead>
-            <tr>
-                <th scope="col">Id</th>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Total Points</th>
-                <th scope="col" colspan="3">Badges</th>
-                <th scope="col">Status</th>
-                <th scope="col">Date Created</th>
-                <th scope="col">Role</th>
-                <th scope="col"></th>
+    <table id="userTable" class="table table-bordered table-hover table-responsive-md table-striped text-center">
+        <thead>
+        <tr>
+            <th scope="col"><a class="sorted" sd:pagination-sort="id">Id</a></th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email</th>
+            <th scope="col"><a class="sorted" sd:pagination-sort="id">Total Points</a></th>
+            <th scope="col" colspan="3">Badges</th>
+            <th scope="col"><a class="sorted" sd:pagination-sort="id">Status</a></th>
+            <th scope="col">Date Created</th>
+            <th scope="col"><a class="sorted" sd:pagination-sort="id">Role</a></th>
+            <th scope="col"></th>
 
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="user:${users}">
-                <td th:text="${user.id}"></td>
-                <td th:text="${user.firstname}"></td>
-                <td th:text="${user.lastname}"></td>
-                <td th:text="${user.email}"></td>
-                <td th:text="100"></td>
-                <td th:text="${user.badges.gold}"></td>
-                <td th:text="${user.badges.silver}"></td>
-                <td th:text="${user.badges.bronze}"></td>
-                <td th:text="${user.status}"></td>
-                <td th:text="${user.dateCreated}"></td>
-                <td th:text="${user.userRole}"></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user:${users}">
+            <td scope="user" th:text="${user.id}"></td>
+            <td th:text="${user.firstname}"></td>
+            <td th:text="${user.lastname}"></td>
+            <!--/*@thymesVar id="email" type="com.divanshu.reap.finalProject.entity"*/-->
+            <td th:text="${user.email}"></td>
+            <td scope="user" th:text="${user.totalPoints}"></td>
+            <td th:text="${user.badges.gold}"></td>
+            <td th:text="${user.badges.silver}"></td>
+            <td th:text="${user.badges.bronze}"></td>
+            <td scope="user" th:text="${user.status}"></td>
+            <td th:text="${user.dateCreated}"></td>
+            <td scope="user" th:text="${user.userRole}"></td>
 
 
-                <td>
-                    <a th:href="@{'/admin/list/{id}/edit'(id=${user.id})}" class="edit"
-                       th:attr="name=${user.firstname}">
+            <td>
+                <a th:href="@{'/admin/list/{id}/edit'(id=${user.id})}" class="edit"
+                   th:attr="name=${user.firstname}">
                     <span class="fa-stack">
                         <i class="glyphicon glyphicon-edit"></i>
                     </span>
 
-                    </a>
-                </td>
+                </a>
+            </td>
 
-                <td>
-                    <a th:href="@{'/admin/list/{id}/delete'(id=${user.id})}" class="delete"
-                       th:attr="name=${user.firstname}">
+            <td>
+                <a th:href="@{'/admin/list/{id}/delete'(id=${user.id})}" class="delete"
+                   th:attr="name=${user.firstname}">
                         <span class="fa-stack">
                             <i class="glyphicon glyphicon-trash"></i>
                         </span>
-                    </a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                </a>
+            </td>
+            <td>
+                <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up"
+                                                                           aria-hidden="true"></i></a></span>
+                <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down"
+                                                                             aria-hidden="true"></i></a></span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div sd:pagination-summary="">info</div>
+        </div>
+        <div class="col-sm-6">
+            <nav class="pull-right">
+                <ul class="pagination" sd:pagination="full">
+                    <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+                    </li>
+                    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+
 </div>
+
+
+<script>
+    $('.table-up').click(function () {
+        var $row = $(this).parents('tr');
+        if ($row.index() === 1) return; // Don't go above the header
+        $row.prev().before($row.get(0));
+    });
+
+    $('.table-down').click(function () {
+        var $row = $(this).parents('tr');
+        $row.next().after($row.get(0));
+    });
+</script>
+
+
+<script>
+
+    $(function () {
+
+        var table = $('#userTable').DataTable({
+            "sAjaxSource": "/users",
+            "sAjaxDataProp": "",
+            "order": [[0, "asc"]],
+            "aoColumns": [
+                {"mData": "id"},
+                {"mData": "firstname"},
+                {"mData": "lastname"},
+                {"mData": "email"},
+                {"mData": "totalPoints"},
+                {"mData": "badges"},
+                {"mData": "status"},
+                {"mData": "dateCreated"},
+                {"mData": "role"}
+
+            ]
+        });
+    });
+</script>
 
 
 </body>

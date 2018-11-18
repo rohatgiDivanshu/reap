@@ -18,28 +18,13 @@
 
 <div class="container-fluid">
 
-    <!--
-        <form method="post" action="/admin/list/update">
-
-            <input type="hidden" class="form-control" name="user_id" th:value="${user.id}"/>
-
-            <label>First name</label>
-            <input type="text" name="firstname" th:value="${user.firstname}">
-
-            <label>Last name</label>
-            <input type="text" name="lastname" th:value="${user.lastname}">
-
-            <button class="btn btn-primary" type="submit">Update</button>
-        </form>
-    -->
-
     <form method="post" action="/admin/list/update">
         <input type="hidden" class="form-control" name="user_id" th:value="${user.id}"/>
 
         <div class="form-group">
             <label class="control-label col-md-3">First Name</label>
             <div class="col-md-7">
-                <input type="text" class="form-control" name="firstname" th:value="${user.firstname}">
+                <input type="text" class="form-control" name="firstname" th:value="${user.firstname}" required>
             </div>
         </div>
 
@@ -63,6 +48,8 @@
              <div class="col-md-7">
                  <input type="radio" class="col-sm-1" name="userRole" value="PRACTICE HEAD" required/>
                  <div class="col-sm-2">PRACTICE HEAD</div>
+                 <input type="radio" class="col-sm-1" name="userRole" value="SUPERVISOR" required/>
+                 <div class="col-sm-2">SUPERVISOR</div>
                  <input type="radio" class="col-sm-1" name="userRole" value="ADMIN" required/>
                  <div class="col-sm-1">ADMIN</div>
                  <input type="radio" class="col-sm-1" name="userRole" value="USER" required/>
@@ -80,6 +67,17 @@
             </div>
         </div>
 
+
+        <table class="table table-editable">
+            <thead>
+            <th scope="col" colspan="3" align="center">Badges</th>
+            </thead>
+            <tbody>
+            <td contenteditable=true th:text="${user.badges.gold}"></td>
+            <td contenteditable=true th:text="${user.badges.silver}"></td>
+            <td contenteditable=true th:text="${user.badges.bronze}"></td>
+            </tbody>
+        </table>
 
         <div class="form-group">
             <div class="col-md-5">

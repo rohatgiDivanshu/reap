@@ -51,6 +51,8 @@ dependencies {
     dev("org.springframework.boot:spring-boot-devtools")
     // https://mvnrepository.com/artifact/org.springframework/spring-context-support
     compile group: 'org.springframework', name: 'spring-context-support', version: '3.2.0.RELEASE'
+// https://mvnrepository.com/artifact/io.github.jpenren/thymeleaf-spring-data-dialect
+    compile group: 'io.github.jpenren', name: 'thymeleaf-spring-data-dialect', version: '3.3.1'
 
 
 }

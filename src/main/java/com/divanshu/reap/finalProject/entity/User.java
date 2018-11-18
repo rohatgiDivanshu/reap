@@ -4,7 +4,9 @@ package com.divanshu.reap.finalProject.entity;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,7 +37,6 @@ public class User {
     @Size(min = 6, message = "Password should be of {min} length")
     private String password;
 
-
     @Temporal(TemporalType.DATE)
     @Column(name = "user_created")
     private Date dateCreated;
@@ -45,18 +46,22 @@ public class User {
 
     private String userRole;
 
-    @OneToOne
-    @JoinColumn(name = "RemainingBadges")
-    private GivenBadges givingBadges;// badgesAvailabe
-
-    @OneToOne
-    @JoinColumn(name = "ReceivedBadges")
-    private ReceivedBadges receivedBadges; //badgesReceived
-
     @Embedded
     private Badges badges;
 
-    public User(@NotEmpty(message = "Please enter first name") String firstname, @NotEmpty(message = "Please enter last name") String lastname, @NotEmpty(message = "Please enter email address") @Email String email, @NotEmpty(message = "Please enter password") @Size(min = 6, message = "Password should be of {min} length") String password, Date dateCreated, String status, String userRole, GivenBadges givingBadges, ReceivedBadges receivedBadges, String resetToken) {
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(joinColumns = @JoinColumn(name = "USER_ID")
+            , inverseJoinColumns = @JoinColumn(name = "APPRECIATION_ID"))
+    List<Appreciation> appreciationList = new ArrayList<>();
+    @Column(name = "reset_token")
+    private String resetToken;
+    @NotNull
+    private Integer totalPoints = 0;
+
+    public User() {
+    }
+
+    public User(@NotEmpty(message = "Please enter first name") String firstname, @NotEmpty(message = "Please enter last name") String lastname, @NotEmpty(message = "Please enter email address") @Email String email, @NotEmpty(message = "Please enter password") @Size(min = 6, message = "Password should be of {min} length") String password, Date dateCreated, String status, String userRole, Badges badges, String resetToken, List<Appreciation> appreciationList, @NotNull Integer totalPoints) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
@@ -64,55 +69,10 @@ public class User {
         this.dateCreated = dateCreated;
         this.status = status;
         this.userRole = userRole;
-        this.givingBadges = givingBadges;
-        this.receivedBadges = receivedBadges;
-        this.resetToken = resetToken;
-    }
-
-    public Badges getBadges() {
-        return badges;
-    }
-
-    @Column(name = "reset_token")
-    private String resetToken;
-
-    public User() {
-    }
-
-    public void setBadges(Badges badges) {
         this.badges = badges;
-    }
-
-    public String getUserRole() {
-        return userRole;
-    }
-
-    public void setUserRole(String userRole) {
-        this.userRole = userRole;
-    }
-
-    public GivenBadges getGivingBadges() {
-        return givingBadges;
-    }
-
-    public void setGivingBadges(GivenBadges givingBadges) {
-        this.givingBadges = givingBadges;
-    }
-
-    public ReceivedBadges getReceivedBadges() {
-        return receivedBadges;
-    }
-
-    public void setReceivedBadges(ReceivedBadges receivedBadges) {
-        this.receivedBadges = receivedBadges;
-    }
-
-    public String getResetToken() {
-        return resetToken;
-    }
-
-    public void setResetToken(String resetToken) {
         this.resetToken = resetToken;
+        this.appreciationList = appreciationList;
+        this.totalPoints = totalPoints;
     }
 
     public Integer getId() {
@@ -171,6 +131,45 @@ public class User {
         this.status = status;
     }
 
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
+    }
+
+    public Badges getBadges() {
+        return badges;
+    }
+
+    public void setBadges(Badges badges) {
+        this.badges = badges;
+    }
+
+    public String getResetToken() {
+        return resetToken;
+    }
+
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
+    }
+
+    public List<Appreciation> getAppreciationList() {
+        return appreciationList;
+    }
+
+    public void setAppreciationList(List<Appreciation> appreciationList) {
+        this.appreciationList = appreciationList;
+    }
+
+    public Integer getTotalPoints() {
+        return totalPoints;
+    }
+
+    public void setTotalPoints(Integer totalPoints) {
+        this.totalPoints = totalPoints;
+    }
 
     @Override
     public String toString() {
@@ -183,9 +182,10 @@ public class User {
                 ", dateCreated=" + dateCreated +
                 ", status='" + status + '\'' +
                 ", userRole='" + userRole + '\'' +
-                ", givingBadges=" + givingBadges +
-                ", receivedBadges=" + receivedBadges +
+                ", badges=" + badges +
                 ", resetToken='" + resetToken + '\'' +
+                ", appreciationList=" + appreciationList +
+                ", totalPoints=" + totalPoints +
                 '}';
     }
 }

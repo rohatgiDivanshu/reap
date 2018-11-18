@@ -1,7 +1,7 @@
 body {
     padding: 0px;
     margin-left: inherit;
-    background-color: aliceblue;
+    background-color: skyblue;
 }
 
 .modal-header, h5 {
@@ -127,4 +127,18 @@ body {
     position: absolute;
     right: 0;
     left: auto;
+}
+
+table.table thead .sorted:after {
+    display: inline-block;
+    opacity: 0.8;
+    margin-left: 1em;
+}
+
+table.table thead .sorted.sorted-desc:after {
+    content: "\f15e";
+}
+
+table.table thead .sorted.sorted-asc:after {
+    content: "\f15d";
 }

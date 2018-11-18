@@ -2,16 +2,15 @@ package com.divanshu.reap.finalProject.services;
 
 
 import com.divanshu.reap.finalProject.entity.Badges;
-import com.divanshu.reap.finalProject.entity.Role;
 import com.divanshu.reap.finalProject.entity.User;
+import com.divanshu.reap.finalProject.enums.UserRole;
 import com.divanshu.reap.finalProject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -61,17 +60,89 @@ public class UserService {
     }
 
 
-    public User updatePassword(String password) {
-        return userRepository.findByPassword(password);
+//    public User updatePassword(String password) {
+//        return userRepository.findByPassword(password);
+//    }
+
+    public User save(User user) {
+        return userRepository.save(user);
     }
 
+    public User update(User user) {
+        Iterator<User> iterator = userRepository.findAll().iterator();
+        if (!iterator.hasNext()) {
+            provideDefaultBadgeByRole(user);
+            userRepository.save(user);
+        } else {
+            provideDefaultBadgeByRole(user);
+            userRepository.save(user);
+        }
+        return user;
+    }
+
+
+//    public User findByUsername(String username) {
+//        return userRepository.findByUserName(username);
+//    }
+
+//    public Optional<User> findByEmail(String email) {
+//        return userRepository.findByEmail(email);
+//    }
+
+//    public List<User> getAllUsersByRole(String role) {
+//        return userRepository.getUsersByRole(role);
+//    }
+
+
+//    public List<User> getUsersFirstName(String firstname) {
+//        return userRepository.findByFirstNameLike("%" + firstname + "%");
+//    }
+
+    /*
+     * Method to fetch all the users
+     * */
+//    public List<User> getAllUsersList() {
+//        return userRepository.findAll();
+//    }
+/*
+    public User updateUserDetails(String role, String status, Integer id) {
+        User user = userRepository.getUserById(id);
+        user.setUserRole(role);
+        user.setStatus(status);
+        provideDefaultBadgeByRole(user);
+        return userRepository.save(user);
+
+    }*/
+
+    public void deleteUserById(Integer id) {
+        userRepository.deleteById(id);
+    }
+
+    public User getById(Integer id) {
+        return userRepository.getUserById(id);
+    }
+
+    /*
+     * Setting Default Badge on the basis of role
+     * */
+    public User provideDefaultBadgeByRole(User user) {
+        if (user.getUserRole().equals("USER")) {
+            user.setBadges(new Badges(3, 2, 1));
+        } else if (user.getUserRole().equals("SUPERVISOR")) {
+            user.setBadges(new Badges(6, 3, 2));
+        } else if (user.getUserRole().equals("PRACTICE HEAD")) {
+            user.setBadges(new Badges(9, 6, 3));
+        } else {
+            user.setBadges(new Badges(0, 0, 0));
+        }
+        return user;
+    }
 
     public void createUser(User user) {
         user.setDateCreated(new Date());
         user.setStatus("Active");
         user.setUserRole("USER");
-        Badges badges = new Badges(2, 4, 6);
-        user.setBadges(badges);
+        provideDefaultBadgeByRole(user);
         userRepository.save(user);
     }
 
@@ -79,39 +150,9 @@ public class UserService {
         user.setDateCreated(new Date());
         user.setStatus("Active");
         user.setUserRole("ADMIN");
-        Badges badges = new Badges(4, 5, 6);
-        user.setBadges(badges);
+        provideDefaultBadgeByRole(user);
         userRepository.save(user);
     }
-
-    public void createPracticeHead(User user) {
-        user.setDateCreated(new Date());
-        user.setStatus("Active");
-        Badges badges = new Badges(3, 6, 9);
-        user.setBadges(badges);
-        user.setUserRole("PRACTICE HEAD");
-        userRepository.save(user);
-    }
-
-
-    public void createSupervisor(User user) {
-        user.setDateCreated(new Date());
-        user.setStatus("Active");
-        Badges badges = new Badges(6, 8, 10);
-        user.setBadges(badges);
-        user.setUserRole("Supervisor");
-        userRepository.save(user);
-    }
-
-
-    public String findByStatus(String status) {
-        return userRepository.findByStatus(status);
-    }
-
-    public String findByRole(String role) {
-        return userRepository.findByUserRole(role);
-    }
-
 
     public boolean isUserPresent(String email) {
 
@@ -133,6 +174,9 @@ public class UserService {
         return userRepository.findByFirstnameLike(firstName + "%");
     }
 
+    public Page<User> findAllUserPage(Pageable pageable) {
+        return userRepository.findAll(pageable);
+    }
 }
 
 
